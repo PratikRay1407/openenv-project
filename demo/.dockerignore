@@ -3,6 +3,3 @@ __pycache__
 *.pyc
 .git
 .gitignore
-
-docker build -t word_game:latest -f Dockerfile .
-docker build --no-cache -t openenv-demo .

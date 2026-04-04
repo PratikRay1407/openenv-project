@@ -6,6 +6,6 @@
 
 """Demo environment server components."""
 
-from .demo_environment import DemoEnvironment
+from .demo_environment import MathEnvironment
 
-__all__ = ["DemoEnvironment"]
+__all__ = ["MathEnvironment"]

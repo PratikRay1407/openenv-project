@@ -1,21 +1,22 @@
 import asyncio
 
-from client import DemoEnv
-from models import DemoAction
+try:
+    from demo.client import MathEnv
+    from demo.models import MathAction
+except ModuleNotFoundError:
+    from client import MathEnv
+    from models import MathAction
 
 
 async def main():
-    env = DemoEnv("http://localhost:8000")
+    async with MathEnv(base_url="http://localhost:8000") as env:
+        reset_result = await env.reset(task_level="easy")
+        print(reset_result.observation.problem)
 
-    obs = await env.reset()
-    print(obs)
-
-    for letter in ["a", "e", "i", "o", "u", "t", "r", "s"]:
-        result = await env.step(DemoAction(message=letter))
-        print(result.observation.echoed_message, result.observation.message_length)
-
-        if result.done:
-            break
+        step_result = await env.step(
+            MathAction(answer=7.0, reasoning="quick sanity check")
+        )
+        print(step_result.observation.feedback, step_result.reward, step_result.done)
 
 
 asyncio.run(main())

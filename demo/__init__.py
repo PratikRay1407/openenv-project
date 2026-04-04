@@ -4,13 +4,13 @@
 # This source code is licensed under the BSD-style license found in the
 # LICENSE file in the root directory of this source tree.
 
-"""Demo Environment."""
+"""Math Word Problem demo environment."""
 
-from .client import DemoEnv
-from .models import DemoAction, DemoObservation
+from .client import MathEnv
+from .models import MathAction, MathObservation
 
 __all__ = [
-    "DemoAction",
-    "DemoObservation",
-    "DemoEnv",
+    "MathAction",
+    "MathObservation",
+    "MathEnv",
 ]

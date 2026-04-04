@@ -5,10 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 """
-FastAPI application for the Demo Environment.
+FastAPI application for the Math Word Problem environment.
 
-This module creates an HTTP server that exposes the DemoEnvironment
-over HTTP and WebSocket endpoints, compatible with EnvClient.
+This module creates an HTTP server that exposes MathEnvironment over HTTP
+and WebSocket endpoints, compatible with EnvClient.
 
 Endpoints:
     - POST /reset: Reset the environment
@@ -24,8 +24,8 @@ Usage:
     # Production:
     uvicorn server.app:app --host 0.0.0.0 --port 8000 --workers 4
 
-    # Or run directly:
-    python -m server.app
+    # Or run via project script:
+    uv run --project . server
 """
 
 try:
@@ -36,18 +36,18 @@ except Exception as e:  # pragma: no cover
     ) from e
 
 try:
-    from models import DemoAction, DemoObservation
-    from demo_environment import DemoEnvironment
+    from demo.models import MathAction, MathObservation
+    from demo.server.demo_environment import MathEnvironment
 except ModuleNotFoundError:
-    from models import DemoAction, DemoObservation
-    from server.demo_environment import DemoEnvironment
+    from models import MathAction, MathObservation
+    from server.demo_environment import MathEnvironment
 
 
 # Create the app with web interface and README integration
 app = create_app(
-    DemoEnvironment,
-    DemoAction,
-    DemoObservation,
+    MathEnvironment,
+    MathAction,
+    MathObservation,
     env_name="demo",
     max_concurrent_envs=1,  # increase this number to allow more concurrent WebSocket sessions
 )

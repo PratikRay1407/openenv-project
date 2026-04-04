@@ -4,95 +4,63 @@
 # This source code is licensed under the BSD-style license found in the
 # LICENSE file in the root directory of this source tree.
 
-"""Demo Environment Client."""
+"""Client for the Math Word Problem environment."""
 
-from typing import Dict
+from typing import Any, Dict
 
 from openenv.core import EnvClient
 from openenv.core.client_types import StepResult
 from openenv.core.env_server.types import State
 
-from .models import DemoAction, DemoObservation
+try:
+    from demo.models import MathAction, MathObservation
+except ModuleNotFoundError:
+    from models import MathAction, MathObservation
 
 
-class DemoEnv(
-    EnvClient[DemoAction, DemoObservation, State]
-):
+class MathEnv(EnvClient[MathAction, MathObservation, State]):
     """
-    Client for the Demo Environment.
+    Client for the Math Word Problem environment.
 
-    This client maintains a persistent WebSocket connection to the environment server,
-    enabling efficient multi-step interactions with lower latency.
-    Each client instance has its own dedicated environment session on the server.
+    This client uses a WebSocket session to the environment server. It is
+    async-first; use ``.sync()`` for synchronous ``with`` / blocking code.
 
-    Example:
-        >>> # Connect to a running server
-        >>> with DemoEnv(base_url="http://localhost:8000") as client:
-        ...     result = client.reset()
-        ...     print(result.observation.echoed_message)
-        ...
-        ...     result = client.step(DemoAction(message="Hello!"))
-        ...     print(result.observation.echoed_message)
+    Example (async):
+        >>> async with MathEnv(base_url="http://localhost:8000") as env:
+        ...     r = await env.reset(task_level="easy")
+        ...     r = await env.step(MathAction(answer=42.0, reasoning="..."))
 
-    Example with Docker:
-        >>> # Automatically start container and connect
-        >>> client = DemoEnv.from_docker_image("demo-env:latest")
-        >>> try:
-        ...     result = client.reset()
-        ...     result = client.step(DemoAction(message="Test"))
-        ... finally:
-        ...     client.close()
+    Example (sync):
+        >>> with MathEnv(base_url="http://localhost:8000").sync() as env:
+        ...     r = env.reset(task_level="medium")
+        ...     r = env.step(MathAction(answer=12.0))
     """
 
-    def _step_payload(self, action: DemoAction) -> Dict:
-        """
-        Convert DemoAction to JSON payload for step message.
-
-        Args:
-            action: DemoAction instance
-
-        Returns:
-            Dictionary representation suitable for JSON encoding
-        """
+    def _step_payload(self, action: MathAction) -> Dict[str, Any]:
         return {
-            "message": action.message,
+            "answer": action.answer,
+            "reasoning": action.reasoning,
         }
 
-    def _parse_result(self, payload: Dict) -> StepResult[DemoObservation]:
-        """
-        Parse server response into StepResult[DemoObservation].
-
-        Args:
-            payload: JSON response data from server
-
-        Returns:
-            StepResult with DemoObservation
-        """
+    def _parse_result(self, payload: Dict[str, Any]) -> StepResult[MathObservation]:
         obs_data = payload.get("observation", {})
-        observation = DemoObservation(
-            echoed_message=obs_data.get("echoed_message", ""),
-            message_length=obs_data.get("message_length", 0),
+        observation = MathObservation(
+            problem=obs_data.get("problem", ""),
+            task_level=obs_data.get("task_level", "easy"),
+            correct_answer=obs_data.get("correct_answer"),
+            is_correct=obs_data.get("is_correct", False),
+            feedback=obs_data.get("feedback", ""),
             done=payload.get("done", False),
             reward=payload.get("reward"),
-            metadata=obs_data.get("metadata", {}),
+            metadata=obs_data.get("metadata") or {},
         )
-
         return StepResult(
             observation=observation,
             reward=payload.get("reward"),
             done=payload.get("done", False),
         )
 
-    def _parse_state(self, payload: Dict) -> State:
-        """
-        Parse server response into State object.
-
-        Args:
-            payload: JSON response from state request
-
-        Returns:
-            State object with episode_id and step_count
-        """
+    def _parse_state(self, payload: Dict[str, Any]) -> State:
         return State(
             episode_id=payload.get("episode_id"),
             step_count=payload.get("step_count", 0),

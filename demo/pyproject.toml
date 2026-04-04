@@ -26,6 +26,9 @@ dependencies = [
     # "gymnasium>=0.29.0",
     # "openspiel>=1.0.0",
     # "smolagents>=1.22.0,<2",
+    "torch>=2.11.0",
+    "transformers>=5.5.0",
+    "trl>=1.0.0",
 ]
 
 [project.optional-dependencies]

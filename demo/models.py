@@ -1,27 +1,45 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-#
-# This source code is licensed under the BSD-style license found in the
-# LICENSE file in the root directory of this source tree.
-
 """
-Data models for the Demo Environment.
+Data models for the Math Word Problem Environment.
 
-The demo environment is a simple test environment that echoes back messages.
+The agent receives a math problem and must return a numerical answer.
+Reward is based on how close the answer is to the correct one.
 """
 
+from typing import Optional
 from openenv.core.env_server.types import Action, Observation
 from pydantic import Field
 
 
-class DemoAction(Action):
-    """Action for the Demo environment - just a message to echo."""
+class MathAction(Action):
+    """Action: the agent submits a numerical answer and optional reasoning."""
 
-    message: str = Field(..., description="Message to echo back")
+    answer: float = Field(..., description="Numerical answer to the math problem")
+    reasoning: str = Field(
+        default="",
+        description="Step-by-step reasoning (optional, not graded)"
+    )
 
 
-class DemoObservation(Observation):
-    """Observation from the Demo environment - the echoed message."""
+class MathObservation(Observation):
+    """Observation: the problem to solve, plus feedback after a step."""
 
-    echoed_message: str = Field(default="", description="The echoed message")
-    message_length: int = Field(default=0, description="Length of the echoed message")
+    problem: str = Field(
+        default="",
+        description="The math word problem the agent must solve"
+    )
+    task_level: str = Field(
+        default="easy",
+        description="Difficulty: easy | medium | hard"
+    )
+    correct_answer: Optional[float] = Field(
+        default=None,
+        description="The correct answer — revealed only after step(), not at reset()"
+    )
+    is_correct: bool = Field(
+        default=False,
+        description="True if the submitted answer was exactly correct"
+    )
+    feedback: str = Field(
+        default="",
+        description="Human-readable feedback on the submitted answer"
+    )   
