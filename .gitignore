@@ -7,6 +7,7 @@ openenv-env/
 main.py
 # C extensions
 *.so
+API_CREDENTIALS.py
 
 # Distribution / packaging
 .Python
