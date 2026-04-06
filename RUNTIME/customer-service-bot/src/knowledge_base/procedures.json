@@ -1,0 +1,67 @@
+{
+  "billing_dispute": {
+    "description": "Customer disputes a charge on their account",
+    "steps": [
+      "Verify customer identity and account",
+      "Review the disputed charge details",
+      "Explain the charge if legitimate",
+      "If error confirmed, initiate refund process",
+      "Provide reference number for the dispute",
+      "Follow up within 48 hours"
+    ],
+    "escalation_threshold": "If charge exceeds $500 or customer requests supervisor",
+    "resolution_time": "3-5 business days"
+  },
+  "defective_product": {
+    "description": "Customer received a defective or damaged product",
+    "steps": [
+      "Apologize for the inconvenience",
+      "Gather product details and order number",
+      "Request photos of the defect/damage",
+      "Offer immediate replacement or full refund",
+      "Provide prepaid return shipping label",
+      "Expedite replacement shipping at no cost"
+    ],
+    "escalation_threshold": "If replacement also defective or customer demands compensation beyond policy",
+    "resolution_time": "Replacement ships within 24 hours"
+  },
+  "late_delivery": {
+    "description": "Customer's order has not arrived within expected timeframe",
+    "steps": [
+      "Look up order and tracking information",
+      "Check carrier status for delays",
+      "Explain the situation to customer",
+      "Offer shipping refund if significantly late",
+      "Provide updated delivery estimate",
+      "File claim with carrier if package lost"
+    ],
+    "escalation_threshold": "If package lost for more than 10 days or customer needs urgent replacement",
+    "resolution_time": "Resolution within 24-48 hours"
+  },
+  "angry_customer": {
+    "description": "Customer is visibly upset or using aggressive language",
+    "steps": [
+      "Remain calm and professional at all times",
+      "Acknowledge their frustration sincerely",
+      "Listen without interrupting",
+      "Apologize for their negative experience",
+      "Focus on solutions, not excuses",
+      "Offer to involve a supervisor if requested"
+    ],
+    "escalation_threshold": "If customer uses threatening language or explicitly demands a manager",
+    "resolution_time": "Immediate de-escalation, resolution varies"
+  },
+  "technical_support": {
+    "description": "Customer needs help with product setup or troubleshooting",
+    "steps": [
+      "Identify the specific product and issue",
+      "Walk through basic troubleshooting steps",
+      "Reference product manual or online guides",
+      "Escalate to technical team if issue persists",
+      "Schedule follow-up call if needed",
+      "Document the issue for knowledge base"
+    ],
+    "escalation_threshold": "If issue requires engineering-level expertise or affects multiple customers",
+    "resolution_time": "Same-day for basic issues, 24-72 hours for complex"
+  }
+}

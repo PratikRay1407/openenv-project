@@ -1,0 +1,32 @@
+{
+  "shipping": {
+    "standard": "5-7 business days, $5.99",
+    "express": "2-3 business days, $12.99",
+    "overnight": "Next business day, $24.99",
+    "free_threshold": "Free standard shipping on orders over $50",
+    "tracking": "Tracking number provided via email within 24 hours"
+  },
+  "returns": {
+    "window": "30 days from delivery",
+    "condition": "Items must be unused and in original packaging",
+    "refund_time": "Refunds processed within 5-7 business days",
+    "return_shipping": "Free return shipping label provided",
+    "exceptions": "Final sale items cannot be returned"
+  },
+  "payments": {
+    "accepted": ["Visa", "Mastercard", "American Express", "PayPal", "Apple Pay"],
+    "security": "All transactions are encrypted and PCI compliant",
+    "installments": "Available for orders over $100 via Klarna"
+  },
+  "warranty": {
+    "standard": "1 year manufacturer warranty on all products",
+    "extended": "2-year extended warranty available for $29.99",
+    "coverage": "Covers defects in materials and workmanship"
+  },
+  "contact": {
+    "hours": "Monday-Friday 8AM-8PM EST, Saturday 9AM-5PM EST",
+    "phone": "1-800-555-0199",
+    "email": "support@techstore.com",
+    "response_time": "Email responses within 4 hours during business hours"
+  }
+}

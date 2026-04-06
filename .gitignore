@@ -238,3 +238,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Training artifacts
+TRAINING/checkpoints/
+TRAINING/logs/
+TRAINING/*.pt
+TRAINING/*.pth
+TRAINING/*.onnx
+
+# Customer service bot cache
+RUNTIME/customer-service-bot/__pycache__/
+RUNTIME/customer-service-bot/**/__pycache__/

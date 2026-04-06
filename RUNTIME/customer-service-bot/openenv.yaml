@@ -1,0 +1,38 @@
+name: customer-service-bot
+version: 0.1.0
+description: Real-world customer service training environment with three difficulty levels (FAQ, Complaint, Escalation)
+author: OpenEnv Hackathon
+license: MIT
+
+tasks:
+  - name: easy_faq
+    difficulty: easy
+    description: Answer common customer FAQ about shipping, returns, payments, and policies
+  - name: medium_complaint
+    difficulty: medium
+    description: Resolve customer complaints about defective products, late deliveries, and billing disputes
+  - name: hard_escalation
+    difficulty: hard
+    description: Handle angry customers requiring de-escalation and proper escalation procedures
+
+observation_space:
+  type: Observation
+  fields:
+    customer_message: str
+    sentiment: float
+    intent: str
+    urgency: int
+    conversation_history: list[str]
+    turn_count: int
+    task_type: str
+    scenario_description: str
+
+action_space:
+  type: Action
+  fields:
+    message: str
+    action_type: enum[answer, acknowledge, ask_clarify, escalate, close]
+    confidence: float
+
+reward_range: [0.0, 1.0]
+max_episode_steps: 10
