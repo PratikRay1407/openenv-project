@@ -31,6 +31,10 @@ class MathObservation(Observation):
         default="easy",
         description="Difficulty: easy | medium | hard"
     )
+    task_level_id: str = Field(
+        default="",
+        description="The ID of the task to solve"
+    )
     correct_answer: Optional[float] = Field(
         default=None,
         description="The correct answer — revealed only after step(), not at reset()"

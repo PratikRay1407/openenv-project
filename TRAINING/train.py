@@ -145,7 +145,7 @@ def reward_fn(completions: list[str], prompts: list[str], **kwargs) -> list[floa
             print(f"  → reset(task_level_id={task_level_id!r})")
             env.reset(task_level_id=task_level_id)
 
-            print(f"  → step(answer={answer})")
+            print(f"  → step(answer={answer})") 
             step_result = env.step(MathAction(answer=answer, reasoning=completion))
 
             reward = step_result.reward if step_result.reward is not None else 0.0

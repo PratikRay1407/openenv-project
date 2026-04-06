@@ -117,6 +117,7 @@ class MathEnvironment(Environment):
         return MathObservation(
             problem=self._current_task["problem"],
             task_level=self._current_task["level"],
+            task_level_id=self._task_level_id,
             done=False,
             reward=0.0,
         )
@@ -154,6 +155,7 @@ class MathEnvironment(Environment):
         return MathObservation(
             problem=self._current_task["problem"],
             task_level=self._current_task["level"],
+            task_level_id=self._task_level_id,
             correct_answer=correct,
             is_correct=is_correct,
             feedback=feedback,
